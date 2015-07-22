@@ -44,17 +44,44 @@ void nodeadd( int n)
 		r1->left=r1->right=NULL;
 	}
 }	
+void printinterval( int k1, int k2, node *p)
+{
+	if(!p) return;
+	//cout<<"\n for "<<p->n;
+	if(p->n > k2) 
+	{
+		printinterval(k1,k2,p->left);
+		return;
+	}
+	if(p->n <k1)
+	{
+		printinterval(k1,k2,p->right);
+		return;
+	}
+
+	printinterval(k1,k2,p->left);
+	if(p->n !=k1 && p->n != k2)
+	cout<<p->n<<",";
+	printinterval(k1,k2,p->right);
+}	
 
 main()
 {
-	int n;
+	int n, k1, k2;
 	cout<<"\n how many nodes?\t";
 	cin>>n;
 	root=NULL;
 	int num;
 	while(n--)
-	{	cin>>num;
+	{	cout<<"\n enter the value:\t";
+		cin>>num;
 		nodeadd(num);
 	}		
 	inorder(root);
+	cout<<"\n enter the lower range:\t";
+	cin>>k1;
+	cout<<"\n Enter the upper range:\t";
+	cin>>k2;
+	printinterval(k1,k2, root);
+
 }	
